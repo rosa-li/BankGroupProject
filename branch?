@@ -1,0 +1,104 @@
+import java.lang.Math;
+import java.util.*;
+import java.io.*;
+
+public class Stock
+{
+    private String symbol;
+    private String name;
+    private double initialValue;
+    private double currentValue;
+    private static ArrayList<Stock> stocks = new ArrayList<>();
+
+    public Stock(String symbol, String name, double value)
+    {
+        this.symbol = symbol;
+        this.name = name;
+        this.initialValue = value;
+        this.currentValue = value;
+    }
+
+    public double getCurrentValue()
+    {
+        currentValue *= (Math.random() * ((1.25 - 0.75) + 1)) + 0.75;
+        return currentValue;
+    }
+
+    public static void add(String symbol, String name, double value)
+    {
+        stocks.add(new Stock(symbol, name, value));
+    }
+    
+    private static void setUp()
+    {
+        add("SNSC", "Sunshine corporations", 500);
+        add("ALPN", "Alp Navigations", 750);
+        add("JWE", "Jewel Entertainment", 1000);
+        add("JPN", "Jupiter Networks", 800);
+        add("AI", "Ace Intelligence", 1500);
+    }
+
+    public static ArrayList getList()
+    {
+        read();
+        if(stocks.isEmpty())
+        {
+            setUp();
+        }
+        return stocks;
+    }
+    
+    public static Stock search(String symbol)
+    {
+        for(Stock stock : stocks)
+        {
+            if(stock.symbol == symbol)
+            {
+                return stock;
+            }
+        }
+        return null;
+    }
+    
+    public static void write()
+    {
+        try 
+        {   
+            FileWriter myWriter = new FileWriter("stocks.txt");
+            for(Stock stock : stocks)
+            {
+                myWriter.write(stock.toString() + "\n");
+            }
+            myWriter.close();
+        } 
+        catch (IOException e) 
+        {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+    
+    public static void read()
+    {
+        stocks.clear();
+        try
+        {
+            Scanner sc = new Scanner(new File("stocks.txt"));
+            while (sc.hasNextLine()) 
+            {
+                String[] tokens = (sc.nextLine().split(", "));
+                add(tokens[0], tokens[1], Double.parseDouble(tokens[2]));       
+            }
+            sc.close();
+        }
+	catch (FileNotFoundException e)
+	{
+	    //System.out.println("File stocks.txt not found");
+	}
+    }
+    
+    public String toString()
+    {
+        return symbol + ", " + name + ", " + getCurrentValue();
+    }
+}
