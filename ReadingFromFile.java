@@ -26,7 +26,7 @@ public class ReadingFromFile
         try
         {
             //Creates a variable called file type File that acceses userInfo
-            File file = new File("userInfo2.txt");
+            File file = new File("userInfo.txt");
             
             if(file.createNewFile())
             {
@@ -38,9 +38,11 @@ public class ReadingFromFile
                 
                 //Initialize scanner
                 Scanner scf = new Scanner(file);
+                //String temp;
                 
                 //record how many times the program has been run - days passed
                 this.daysPassed = scf.nextInt();
+                System.out.println(daysPassed);
                 
                 //Repeat while the file has another line  - will scan again if theres another persons details
                 while(scf.hasNextLine())
@@ -54,10 +56,11 @@ public class ReadingFromFile
                     money = scf.nextFloat();  //Scan for money and store it
                     withdraws = scf.nextFloat();   //Scan for withdraws and store it
                     
-                    
                     //Add a new position in the array with the varibles we just scanned
                     users.add(new UserInfo(fn, ln, pass, cardNum, money, withdraws));
                 }
+                
+                scf.close();
             }
         }
         catch(IOException e)  //If there is an error with the file, then it will output an error message
