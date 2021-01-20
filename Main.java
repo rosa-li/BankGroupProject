@@ -46,12 +46,6 @@ public class Main
 				               
 			Stock.write();
 			Stock.read();
-				               
-			stockList = Stock.getList();
-			for(Stock stock : stockList)
-			{
-			System.out.println(stock); 
-			}
 		   
 		SaveFile file1 = new SaveFile(daysPassed, users);
 	               
