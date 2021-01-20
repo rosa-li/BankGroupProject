@@ -13,10 +13,6 @@ public class Main
 	        
 	       position = start.SetUpAccounts(users);
 	       daysPassed = start.getDaysPassed();
-	        
-	       System.out.println(position);
-	       System.out.println(daysPassed);
-	       System.out.println(users.get(position).getName());
 	       
 	       UserInfo customer = new UserInfo();
 	       //System.out.println("Would you like to invest in a stock?");
@@ -30,14 +26,6 @@ public class Main
 	       UserInfo info = new UserInfo();
 	       
 	       DepositWithdraw yes = new DepositWithdraw();
-	       
-	       SaveFile file1 = new SaveFile(5, users);
-	       
-	       
-	       
-	       
-	       
-	       
 	         
 	        Stock.read();
 	        ArrayList<Stock> stockList = Stock.getList();
@@ -64,9 +52,9 @@ public class Main
 			{
 			System.out.println(stock); 
 			}
+		   
+		SaveFile file1 = new SaveFile(daysPassed, users);
 	               
-	            
-	       
 	    
 }
 
