@@ -23,17 +23,25 @@ public class Investor
         return cardNumber + symbols;
     }
 
-    public void buy(Stock stock)
+    public boolean buy(Stock stock)
     {
-        if(stockList.contains(stock) == false)
+        if(stockList.contains(stock))
         {
-            stockList.add(stock);
+            System.out.println(stock.getSymbol() + " already owned");
+            return false;
         }
+        stockList.add(stock);
+        return true;
     }
 
-    public void sell(Stock stock)
+    public boolean sell(Stock stock)
     {
-        stockList.remove(stock);
+        boolean ret = stockList.remove(stock);
+        if(ret == false)
+        {
+            System.out.println(stock.getSymbol() + " is not owned");
+        }
+        return ret;
     }
 
     public ArrayList<Stock> owned()
@@ -160,18 +168,18 @@ public class Investor
                 float money = customer.getMoney();
                 if(money >= value)
                 {
-                    investor.buy(stock);
-                    customer.setMoney(money - value);
-                    System.out.println(stock.getSymbol() + " has been bought!\n" + 
-                        "your new balance is: " + customer.getMoney());  
-                    break;
+                    if(investor.buy(stock))
+                    {
+                        customer.setMoney(money - value);
+                        System.out.println(stock.getSymbol() + " has been bought!\n" + 
+                            "your new balance is: " + customer.getMoney());
+                    }
                 }
                 else
                 {
                     System.out.println("Insufficient funds");
                 }
             }
-            SetUpAccounts.clear();
         } while(true);
     }
 
