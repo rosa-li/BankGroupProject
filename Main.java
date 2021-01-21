@@ -7,6 +7,8 @@ public class Main
 {
     public static void main(String [] args)
     {
+        SetUpAccounts.clear();
+        
         SetUpAccounts start = new SetUpAccounts();
         int position, daysPassed;
         ArrayList<UserInfo> users = new ArrayList<UserInfo>();
@@ -19,7 +21,7 @@ public class Main
         Investor.setupInvestments();
         Investor.addInvestment(customer2);
 
-        // System.out.println("Would you like to exchange to another currency?");
+        //System.out.println("Would you like to exchange to another currency?");
         CurrencyExchange exchange = new CurrencyExchange();
 
         UserInfo info = new UserInfo();
@@ -30,4 +32,4 @@ public class Main
         Stock.write();
         Investor.write();
     }
-
+}
