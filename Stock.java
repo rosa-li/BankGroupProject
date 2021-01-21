@@ -123,7 +123,7 @@ public class Stock
         {
             //scanner to read the designated file
             Scanner sc = new Scanner(new File("stocks.txt"));
-            //while loop that "tokenises" each line, using those values to create stocks 
+            //while loop that goes though each line in the file and "tokenises" each line, using those values to create stocks 
             while (sc.hasNextLine()) 
             {
                 //splits the line by a specified character combination
