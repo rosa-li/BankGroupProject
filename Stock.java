@@ -2,104 +2,100 @@ import java.lang.Math;
 import java.util.*;
 import java.io.*;
 
-	public class Stock
-	{
-	private String symbol;
-	private String name;
-	private double initialValue;
-	private double currentValue;
-	private static ArrayList<Stock> stocks = new ArrayList<>();
-	
-	public Stock(String symbol, String name, double value)
-	{
-	    this.symbol = symbol;
-	    this.name = name;
-	    this.initialValue = value;
-	    this.currentValue = value;
-	}
+public class Stock
+{
+    private String symbol;
+    private String name;
+    private float initialValue;
+    private float currentValue;
+    private static ArrayList<Stock> stockList = new ArrayList<Stock>();
 
-	public double getCurrentValue()
-	{
-	    currentValue *= (Math.random() * ((1.25 - 0.75) + 1)) + 0.75;
-	    return currentValue;
-	}
+    public Stock(String symbol, String name, float value)
+    {
+        this.symbol = symbol;
+        this.name = name;
+        this.initialValue = value;
+        this.currentValue = value;
+    }
 
-	public static void add(String symbol, String name, double value)
-	{
-	    stocks.add(new Stock(symbol, name, value));
-	}
+    public float getCurrentValue()
+    {
+        currentValue *= Math.random() * (1.02 - 0.98) + 0.98;
+        return currentValue;
+    }
 
-	private static void setUp()
-	{
-	    add("SNSC", "Sunshine corporations", 500);
-	    add("ALPN", "Alp Navigations", 750);
-	    add("JWE", "Jewel Entertainment", 1000);
-	    add("JPN", "Jupiter Networks", 800);
-	    add("AI", "Ace Intelligence", 1500);
-	}
+    public String getSymbol()
+    {
+        return symbol;
+    }
 
-	public static ArrayList getList()
-	{
-	    read();
-	    if(stocks.isEmpty())
-	    {
-	        setUp();
-	    }
-	    return stocks;
-	}
+    public String toString()
+    {
+        return symbol + ", " + name + ", " + getCurrentValue();
+    }
 
-	public static Stock search(String symbol)
-	{
-	    for(Stock stock : stocks)
-	    {
-	        if(stock.symbol == symbol)
-	        {
-	            return stock;
-	        }
-	    }
-	    return null;
-	}
+    public static Stock add(String symbol, String name, float value)
+    {
+        Stock stock = search(symbol);
+        if(stock == null)
+        {
+            stock = new Stock(symbol, name, value);
+            stockList.add(stock);
+        }
+        return stock;
+    }
 
-	public static void write()
-	{
-	    try 
-	    {   
-	        FileWriter myWriter = new FileWriter("stocks.txt");
-	        for(Stock stock : stocks)
-	        {
-	            myWriter.write(stock.toString() + "\\n");
-	        }
-	        myWriter.close();
-	    } 
-	    catch (IOException e) 
-	    {
-	        System.out.println("An error occurred.");
-	        e.printStackTrace();
-	    }
-	}
+    public static ArrayList getList()
+    {
+        return stockList;
+    }
 
-	public static void read()
-	{
-	    stocks.clear();
-	    try
-	    {
-	        Scanner sc = new Scanner(new File("stocks.txt"));
-	        while (sc.hasNextLine()) 
-	        {
-	            String[] tokens = (sc.nextLine().split(", "));
-	            add(tokens[0], tokens[1], Double.parseDouble(tokens[2]));       
-	        }
-	        sc.close();
-	    }
-	catch (FileNotFoundException e)
-	{
-	    //System.out.println("File stocks.txt not found");
-	}
-	}
+    public static Stock search(String symbol)
+    {
+        for(Stock stock : stockList)
+        {
+            if(stock.symbol.equalsIgnoreCase(symbol))
+            {
+                return stock;
+            }
+        }
+        return null;
+    }
 
-	public String toString()
-	{
-	    return symbol + ", " + name + ", " + getCurrentValue();
-	}
+    public static void write()
+    {
+        try 
+        {   
+            FileWriter myWriter = new FileWriter("stocks.txt");
+            for(Stock stock : stockList)
+            {
+                myWriter.write(stock.toString() + "\n");
+            }
+            myWriter.close();
+        } 
+        catch (IOException e) 
+        {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 
+    public static void read()
+    {
+        stockList.clear();
+        try
+        {
+            Scanner sc = new Scanner(new File("stocks.txt"));
+            while (sc.hasNextLine()) 
+            {
+                String[] tokens = (sc.nextLine().split(", "));
+                add(tokens[0], tokens[1], Float.parseFloat(tokens[2]));       
+            }
+            sc.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            //System.out.println("File stocks.txt not found");
+        }
+    }
 }
