@@ -5,50 +5,32 @@ import java.io.*;
 
 public class Main
 {
-	   public static void main(String [] args)
-	   {
-	       SetUpAccounts start = new SetUpAccounts();
-	       int position, daysPassed;
-	       ArrayList<UserInfo> users = new ArrayList<UserInfo>();
-	        
-	       position = start.SetUpAccounts(users);
-	       daysPassed = start.getDaysPassed();
-	       
-	       UserInfo customer = new UserInfo();
-	       //System.out.println("Would you like to invest in a stock?");
-	       
-	       Stock invest = new Stock("SNSC", "Sunshine corporations", (float)300.0);
-	       
-	       ReadingFromFile read = new ReadingFromFile();
-	      // System.out.println("Would you like to exchange to another currency?");
-	       CurrencyExchange exchange = new CurrencyExchange();
-	       
-	       UserInfo info = new UserInfo();
-	       
-	       DepositWithdraw yes = new DepositWithdraw();
-	         
-	        Stock.read();
-	        ArrayList<Stock> stockList = Stock.getList();
-	        if(stockList.isEmpty())
-	        {
-	           Stock.add("SNSC", "Sunshine corporations", 500);
-	           Stock.add("ALPN", "Alp Navigations", 750);
-	           Stock.add("JWE", "Jewel Entertainment", 1000);
-	           Stock.add("JPN", "Jupiter Networks", 800);
-	           Stock.add("AI", "Ace Intelligence", 1500);
-	        }
-	              
-			stockList = Stock.getList();
-			for(Stock stock : stockList)
-			{
-			System.out.println(stock); 
-			}
-				               
-			Stock.write();
-			Stock.read();
-		   
-		SaveFile file1 = new SaveFile(daysPassed, users);
-	               
-	    
-}
+    public static void main(String [] args)
+    {
+        SetUpAccounts start = new SetUpAccounts();
+        int position, daysPassed;
+        ArrayList<UserInfo> users = new ArrayList<UserInfo>();
+
+        position = start.SetUpAccounts(users);
+        daysPassed = start.getDaysPassed();
+
+        UserInfo customer = new UserInfo();
+        
+        UserInfo customer2 = users.get(position);
+
+        Investor.setupInvestments();
+        Investor.addInvestment(customer2);
+
+        ReadingFromFile read = new ReadingFromFile();
+        // System.out.println("Would you like to exchange to another currency?");
+        CurrencyExchange exchange = new CurrencyExchange();
+
+        UserInfo info = new UserInfo();
+
+        DepositWithdraw yes = new DepositWithdraw();
+
+        SaveFile file1 = new SaveFile(daysPassed, users);
+        Stock.write();
+        Investor.write();
+    }
 
