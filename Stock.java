@@ -19,7 +19,7 @@ public class Stock
     private float initialValue;
     //float of the current value of a stock
     private float currentValue;
-    //array list of available stocks
+    //static array list of available stocks
     private static ArrayList<Stock> stockList = new ArrayList<Stock>();
 
     //constructor that takes symbol, name and valuu and assigns them to their respective variable 
