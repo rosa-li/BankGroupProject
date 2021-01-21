@@ -13,15 +13,12 @@ public class Main
 
         position = start.SetUpAccounts(users);
         daysPassed = start.getDaysPassed();
-
-        UserInfo customer = new UserInfo();
         
         UserInfo customer2 = users.get(position);
 
         Investor.setupInvestments();
         Investor.addInvestment(customer2);
 
-        ReadingFromFile read = new ReadingFromFile();
         // System.out.println("Would you like to exchange to another currency?");
         CurrencyExchange exchange = new CurrencyExchange();
 
